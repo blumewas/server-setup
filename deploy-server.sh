@@ -142,7 +142,7 @@ start_box "Configuring SSH daemon..."
 cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bu
 
 sed -i.bu "s/#Port 22/Port $SSH_PORT/" /etc/ssh/sshd_config
-sed -i.bu -E 's/^#?PermitRootLogin (yes|no)/PermitRootLogin prohibit-password/' /etc/ssh/sshd_config
+sed -i.bu -E 's/^#?PermitRootLogin (yes|no)/PermitRootLogin prohibit-password/' ./sshd_config
 sed -i.bu "s/#PasswordAuthentication yes/PasswordAuthentication no/" /etc/ssh/sshd_config
 sed -i.bu "s/#PubkeyAuthentication yes/PubkeyAuthentication yes/" /etc/ssh/sshd_config
 sed -i.bu "s/#PermitEmptyPasswords no/PermitEmptyPasswords no/" /etc/ssh/sshd_config
@@ -151,6 +151,11 @@ sed -i.bu "s/#PermitEmptyPasswords no/PermitEmptyPasswords no/" /etc/ssh/sshd_co
 sed -i.bu "s/#AllowAgentForwarding yes/AllowAgentForwarding no/" /etc/ssh/sshd_config
 sed -i.bu "s/#AllowTcpForwarding yes/AllowTcpForwarding no/" /etc/ssh/sshd_config
 sed -i.bu "s/#X11Forwarding yes/X11Forwarding no/" /etc/ssh/sshd_config
+
+# set MaxAuthTries
+sed -i.bu "s/#MaxAuthTries 6/MaxAuthTries 3/" /etc/ssh/sshd_config
+# disable UsePAM
+sed -i.bu "s/UsePAM yes/UsePAM no/" /etc/ssh/sshd_config
 
 echo "SSH daemon configured. Restarting SSH service..."
 systemctl restart ssh
