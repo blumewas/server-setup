@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # This script sets the shell to exit immediately if any command fails.
 set -e
