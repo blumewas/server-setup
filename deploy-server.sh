@@ -87,6 +87,11 @@ do
     esac
 done
 
+if [ -z "$USERNAME" ] || [ -z "$SSH_PUBLIC_KEY" ]; then
+    echo "Error: Username and SSH public key are required."
+    usage
+fi
+
 # Check if running as root
 if [ "$(id -u)" -ne 0 ]; then
     start_box "This script must be run as root or with sudo."
