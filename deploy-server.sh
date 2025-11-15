@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # This script sets the shell to exit immediately if any command fails.
 set -e
