@@ -1,0 +1,9 @@
+# Ignore files that should not be tracked by Git
+
+# Ignore .env files
+.env
+.env*
+
+# Ignore configuration files
+sshd_config
+sshd_config.bu
