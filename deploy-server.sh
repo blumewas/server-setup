@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # This script sets the shell to exit immediately if any command fails.
 set -e
@@ -95,22 +95,22 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 # update package list and upgrade installed packages
-apt update && apt upgrade -y
+# apt update && apt upgrade -y
 
-# Installing necessary packages
-start_box "Installing necessary packages..."
-apt install -y \
-    vim \
-    curl  \
-    wget  \
-    git  \
-    htop  \
-    unzip  \
-    net-tools \
-    fail2ban \
-    ufw
+# # Installing necessary packages
+# start_box "Installing necessary packages..."
+# apt install -y \
+#     vim \
+#     curl  \
+#     wget  \
+#     git  \
+#     htop  \
+#     unzip  \
+#     net-tools \
+#     fail2ban \
+#     ufw
 
-end_box
+# end_box
 
 # add admin user with SSH key access
 start_box "Creating user $USERNAME..."
