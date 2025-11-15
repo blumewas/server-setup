@@ -122,7 +122,7 @@ USER_PASSWORD=$(openssl passwd -6 "mysecret")
 # add admin user with SSH key access
 start_box "Creating user $USERNAME..."
 
-adduser "$USERNAME"
+adduser --disabled-password --gecos "" "$USERNAME"
 usermod -aG sudo "$USERNAME"
 # set user password
 echo "$USERNAME:$USER_PASSWORD" | chpasswd
