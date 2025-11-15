@@ -122,7 +122,7 @@ USER_PASSWORD=$(openssl passwd -6 "mysecret")
 # add admin user with SSH key access
 start_box "Creating user $USERNAME..."
 
-adduser -m -s /bin/bash "$USERNAME"
+adduser "$USERNAME"
 usermod -aG sudo "$USERNAME"
 # set user password
 echo "$USERNAME:$USER_PASSWORD" | chpasswd
@@ -132,6 +132,9 @@ echo "$SSH_PUBLIC_KEY" > "/home/$USERNAME/.ssh/authorized_keys"
 chown -R "$USERNAME:$USERNAME" "/home/$USERNAME/.ssh"
 chmod 700 "/home/$USERNAME/.ssh"
 chmod 600 "/home/$USERNAME/.ssh/authorized_keys"
+
+# set shell to bash
+chsh -s /bin/bash "$USERNAME"
 
 # Print the user details
 echo "User $USERNAME created with the following details:"
