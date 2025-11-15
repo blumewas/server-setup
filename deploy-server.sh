@@ -27,12 +27,12 @@ start_box() {
     local text="$1"
     local BOX_WIDTH=${#text}
     local border=$(printf '%*s' "$BOX_WIDTH" | tr ' ' '*')
-    echo -e "\n$border\n\n$text\n"
+    echo "\n$border\n\n$text\n"
 }
 
 end_box() {
     local border=$(printf '%*s' "$BOX_WIDTH" | tr ' ' '*')
-    echo -e "$border\n"
+    echo "$border\n"
 }
 
 # =================================================================
@@ -45,7 +45,7 @@ wait_for_user() {
         question="Press any key to continue..."
     fi
 
-    echo -e "\n$question\n"
+    echo "\n$question\n"
 
     local confirm_key="${2-y}"
     local abort_key="${3-n}"
@@ -60,10 +60,10 @@ wait_for_user() {
         echo "\nProceeding..."
         break
     elif [[ $key == "$abort_key" ]]; then
-        echo -e "\nExiting..."
+        echo "\nExiting..."
         exit 1
     else
-        echo -e "\nInvalid key. Please press '$confirm_key' to proceed or '$abort_key' to exit."
+        echo "\nInvalid key. Please press '$confirm_key' to proceed or '$abort_key' to exit."
         continue
     fi
     done
