@@ -122,17 +122,16 @@ USER_PASSWORD=$(openssl passwd -6 "mysecret")
 # add admin user with SSH key access
 start_box "Creating user $USERNAME..."
 
-adduser --disabled-password --gecos "" "$USERNAME"
+adduser -m -s /bin/bash "$USERNAME"
+usermod -aG sudo "$USERNAME"
+# set user password
+echo "$USERNAME:$USER_PASSWORD" | chpasswd
+
 mkdir -p "/home/$USERNAME/.ssh"
 echo "$SSH_PUBLIC_KEY" > "/home/$USERNAME/.ssh/authorized_keys"
 chown -R "$USERNAME:$USERNAME" "/home/$USERNAME/.ssh"
 chmod 700 "/home/$USERNAME/.ssh"
 chmod 600 "/home/$USERNAME/.ssh/authorized_keys"
-
-# set user password
-echo "$USERNAME:$USER_PASSWORD" | chpasswd
-# set shell to bash
-chsh -s /bin/bash "$USERNAME"
 
 # Print the user details
 echo "User $USERNAME created with the following details:"
@@ -154,7 +153,7 @@ start_box "Configuring SSH daemon..."
 cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bu
 
 sed -i.bu "s/#Port 22/Port $SSH_PORT/" /etc/ssh/sshd_config
-sed -i.bu -E 's/^#?PermitRootLogin (yes|no)/PermitRootLogin prohibit-password/' ./sshd_config
+sed -i.bu -E 's/^#?PermitRootLogin (yes|no)/PermitRootLogin prohibit-password/' /etc/ssh/sshd_config
 sed -i.bu "s/#PasswordAuthentication yes/PasswordAuthentication no/" /etc/ssh/sshd_config
 sed -i.bu "s/#PubkeyAuthentication yes/PubkeyAuthentication yes/" /etc/ssh/sshd_config
 sed -i.bu "s/#PermitEmptyPasswords no/PermitEmptyPasswords no/" /etc/ssh/sshd_config
